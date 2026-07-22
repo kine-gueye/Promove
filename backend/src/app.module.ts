@@ -8,7 +8,8 @@ import { UsersModule } from './users/users.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { User } from './users/entities/user.entity';
-
+import { CarsModule } from './cars/cars.module';
+import { Car } from './cars/entities/car.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,13 +27,14 @@ import { User } from './users/entities/user.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User],
+        entities: [User, Car],
         synchronize: configService.get<string>('DB_SYNCHRONIZE') === 'true',
       }),
     }),
 
     AuthModule,
     UsersModule,
+    CarsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },
