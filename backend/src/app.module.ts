@@ -10,6 +10,12 @@ import { RolesGuard } from './auth/guards/roles.guard';
 import { User } from './users/entities/user.entity';
 import { CarsModule } from './cars/cars.module';
 import { Car } from './cars/entities/car.entity';
+// avec les autres imports
+import { BookingsModule } from './bookings/bookings.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { Booking } from './bookings/entities/booking.entity';
+import { Review } from './reviews/entities/review.entity';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,7 +33,7 @@ import { Car } from './cars/entities/car.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User, Car],
+        entities: [User, Car, Booking, Review],
         synchronize: configService.get<string>('DB_SYNCHRONIZE') === 'true',
       }),
     }),
@@ -35,6 +41,8 @@ import { Car } from './cars/entities/car.entity';
     AuthModule,
     UsersModule,
     CarsModule,
+    BookingsModule,
+    ReviewsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },
